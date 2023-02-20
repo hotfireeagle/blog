@@ -12,7 +12,7 @@ func (h *Handler) LoginUser(c *gin.Context) {
 		return
 	}
 
-	userObj := new(models.UserLoginParams)
+	userObj := new(models.User)
 	err := c.ShouldBindJSON(userObj)
 
 	if err != nil {
@@ -22,6 +22,12 @@ func (h *Handler) LoginUser(c *gin.Context) {
 
 	dbUser, err := h.db.SelectUserByEmail(userObj.Email)
 
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, NewErrorResponse(err.Error()))
+		return
+	}
+
+	err = userObj.HashPassword()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, NewErrorResponse(err.Error()))
 		return

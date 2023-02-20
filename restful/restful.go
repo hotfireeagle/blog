@@ -14,6 +14,7 @@ func RunAPI(address string) error {
 
 func RunAPIWithHandler(address string, h HandlerInterface) error {
 	r := gin.Default() // gin engine object
+	r.Use(MyCustomMiddleware())
 
 	apiGroup := r.Group("/api")
 
