@@ -41,18 +41,18 @@ func (h *Handler) GetArticles(c *gin.Context) {
 	err := c.ShouldBindJSON(&queryArticleListParam)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, NewErrorResponse(err.Error()))
+		c.JSON(http.StatusBadRequest, newErrorResponse(err.Error()))
 		return
 	}
 
 	articles, err := h.db.SelectArticles(queryArticleListParam.Page, queryArticleListParam.PageSize)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewErrorResponse(err.Error()))
+		c.JSON(http.StatusInternalServerError, newErrorResponse(err.Error()))
 		return
 	}
 
-	c.JSON(http.StatusOK, NewOkResponse(articles))
+	c.JSON(http.StatusOK, newOkResponse(articles))
 }
 
 func (h *Handler) GetArticleDetail(c *gin.Context) {
@@ -65,11 +65,11 @@ func (h *Handler) GetArticleDetail(c *gin.Context) {
 	articleDetail, err := h.db.SelectArticleById(articleId)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewErrorResponse(err.Error()))
+		c.JSON(http.StatusInternalServerError, newErrorResponse(err.Error()))
 		return
 	}
 
-	c.JSON(http.StatusOK, NewOkResponse(articleDetail))
+	c.JSON(http.StatusOK, newOkResponse(articleDetail))
 }
 
 func (h *Handler) CreateArticle(c *gin.Context) {
@@ -81,16 +81,16 @@ func (h *Handler) CreateArticle(c *gin.Context) {
 	err := c.ShouldBindJSON(articleObj)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, NewErrorResponse(err.Error()))
+		c.JSON(http.StatusBadRequest, newErrorResponse(err.Error()))
 		return
 	}
 
 	uuid, err := h.db.InsertArticle(articleObj)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewErrorResponse(err.Error()))
+		c.JSON(http.StatusInternalServerError, newErrorResponse(err.Error()))
 		return
 	}
 
-	c.JSON(http.StatusOK, NewOkResponse(uuid))
+	c.JSON(http.StatusOK, newOkResponse(uuid))
 }

@@ -13,14 +13,14 @@ type Response struct {
 	Msg    string      `json:"msg"`
 }
 
-func NewErrorResponse(reason string) *Response {
+func newErrorResponse(reason string) *Response {
 	return &Response{
 		Status: Err,
 		Msg:    reason,
 	}
 }
 
-func NewOkResponse(data interface{}) *Response {
+func newOkResponse(data interface{}) *Response {
 	return &Response{
 		Status: Success,
 		Data:   data,
