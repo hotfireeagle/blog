@@ -47,3 +47,9 @@ func (db *DBORM) InsertUser(user *models.User) (string, error) {
 	result := db.Create(user)
 	return user.Id, result.Error
 }
+
+func (db *DBORM) SelectUserById(id string) (*models.User, error) {
+	userObj := new(models.User)
+	result := db.First(userObj, id)
+	return userObj, result.Error
+}

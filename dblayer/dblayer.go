@@ -9,4 +9,5 @@ type DBLayer interface {
 
 	SelectUserByEmail(string) (*models.User, error)
 	InsertUser(*models.User) (string, error)
+	SelectUserById(string) (*models.User, error)
 }
