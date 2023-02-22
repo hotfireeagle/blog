@@ -23,5 +23,9 @@ func RunAPIWithHandler(address string, h HandlerInterface) error {
 	articleGroup.GET("/detail/:articleId", h.GetArticleDetail)
 	articleGroup.POST("/new", h.CreateArticle)
 
+	userGroup := apiGroup.Group("/user")
+	userGroup.POST("/new", h.RegisterUser)
+	userGroup.POST("/login", h.LoginUser)
+
 	return r.Run(address)
 }

@@ -15,6 +15,7 @@ type HandlerInterface interface {
 	CreateArticle(c *gin.Context)
 
 	LoginUser(c *gin.Context)
+	RegisterUser(c *gin.Context)
 }
 
 type Handler struct {

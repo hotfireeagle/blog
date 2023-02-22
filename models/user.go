@@ -1,10 +1,9 @@
 package models
 
 import (
-	"errors"
+	"crypto/sha256"
+	"encoding/hex"
 	"time"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -12,28 +11,15 @@ type User struct {
 	Email    string    `json:"email" gorm:"column:email" binding:"required"`
 	Password string    `json:"password" gorm:"column:password" binding:"required"`
 	CreateAt time.Time `json:"createAt" gorm:"column:create_at"`
-	UpdateAt time.Time `json:"updateAt" gorm:"column:update_at"`
-	DeleteAt time.Time `json:"deleteAt" gorm:"column:delete_at"`
+	UpdateAt time.Time `json:"updateAt" gorm:"column:update_at;default:null"`
+	DeleteAt time.Time `json:"deleteAt" gorm:"column:delete_at;default:null"`
 }
 
 func (User) TableName() string {
 	return "user"
 }
 
-func (u *User) HashPassword() error {
-	if u.Password == "" {
-		return errors.New("密码为空")
-	}
-
-	sBytes := []byte(u.Password)
-
-	hashedBytes, err := bcrypt.GenerateFromPassword(sBytes, bcrypt.DefaultCost)
-
-	if err != nil {
-		return err
-	}
-
-	u.Password = string(hashedBytes)
-
-	return nil
+func (u *User) HashPassword() {
+	sumArr := sha256.Sum256([]byte(u.Password))
+	u.Password = hex.EncodeToString(sumArr[:])
 }

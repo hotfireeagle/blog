@@ -34,7 +34,16 @@ func (db *DBORM) InsertArticle(article *models.Article) (string, error) {
 	return article.Id, result.Error
 }
 
-func (db *DBORM) SelectUserByEmail(email string) (user *models.User, err error) {
+func (db *DBORM) SelectUserByEmail(email string) (*models.User, error) {
 	result := db.Table("user").Where(&models.User{Email: email})
-	return user, result.Find(user).Error
+	uobj := new(models.User)
+	res := result.Find(uobj)
+	return uobj, res.Error
+}
+
+func (db *DBORM) InsertUser(user *models.User) (string, error) {
+	user.Id = uuid.NewString()
+	user.CreateAt = time.Now()
+	result := db.Create(user)
+	return user.Id, result.Error
 }

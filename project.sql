@@ -15,7 +15,7 @@ CREATE TABLE article (
 CREATE TABLE user (
   id VARCHAR(36) NOT NULL PRIMARY KEY,
   email VARCHAR(100) NOT NULL UNIQUE,
-  password VARCHAR(32) NOT NULL,
+  password VARCHAR(80) NOT NULL,
   create_at DATETIME,
   update_at DATETIME,
   delete_at DATETIME
