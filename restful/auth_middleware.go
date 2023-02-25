@@ -9,12 +9,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AuthMiddleware(h Handler) gin.HandlerFunc {
+func AuthMiddleware(h HandlerInterface) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.Request.Header.Get("token")
 
 		if token == "" {
 			c.JSON(http.StatusForbidden, newErrorResponse("不存在token,请登录"))
+			c.Abort()
 			return
 		}
 
@@ -22,23 +23,35 @@ func AuthMiddleware(h Handler) gin.HandlerFunc {
 		if err != nil {
 			tools.ErrLog(err)
 			c.JSON(http.StatusInternalServerError, newErrorResponse(err.Error()))
+			c.Abort()
 			return
 		}
 
 		if userObj.Exp.Before(time.Now()) {
 			c.JSON(http.StatusForbidden, newErrorResponse("登录已过期,请重新登录"))
+			c.Abort()
 			return
 		}
 
-		dbUser, err := h.db.SelectUserById(userObj.Id)
+		hs, ok := h.(*Handler)
+		if !ok {
+			tools.ErrLog(err)
+			c.JSON(http.StatusInternalServerError, newErrorResponse(err.Error()))
+			c.Abort()
+			return
+		}
+
+		dbUser, err := hs.db.SelectUserById(userObj.Id)
 		if err != nil {
 			tools.ErrLog(err)
 			c.JSON(http.StatusInternalServerError, newErrorResponse(err.Error()))
+			c.Abort()
 			return
 		}
 
 		if dbUser.Id != userObj.Id {
 			c.JSON(http.StatusForbidden, newErrorResponse("用户不存在,请重新登录"))
+			c.Abort()
 			return
 		}
 

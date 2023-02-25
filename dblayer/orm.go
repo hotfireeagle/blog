@@ -24,7 +24,7 @@ func (db *DBORM) SelectArticles(page int, size int) (articles []models.Article, 
 }
 
 func (db *DBORM) SelectArticleById(id string) (article models.Article, err error) {
-	return article, db.First(&article, id).Error
+	return article, db.First(&article, "id = ?", id).Error
 }
 
 func (db *DBORM) InsertArticle(article *models.Article) (string, error) {
@@ -50,6 +50,8 @@ func (db *DBORM) InsertUser(user *models.User) (string, error) {
 
 func (db *DBORM) SelectUserById(id string) (*models.User, error) {
 	userObj := new(models.User)
-	result := db.First(userObj, id)
+	// because our user primary key id is string, so we need put the `id=?` in the center
+	// if the primary key is number, we can ignore that
+	result := db.First(userObj, "id = ?", id)
 	return userObj, result.Error
 }

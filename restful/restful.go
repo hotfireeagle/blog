@@ -1,6 +1,8 @@
 package restful
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func RunAPI(address string) error {
 	h, err := NewHandler()
@@ -14,11 +16,11 @@ func RunAPI(address string) error {
 
 func RunAPIWithHandler(address string, h HandlerInterface) error {
 	r := gin.Default() // gin engine object
-	r.Use(MyCustomMiddleware())
 
 	apiGroup := r.Group("/api")
 
 	articleGroup := apiGroup.Group("/article")
+	articleGroup.Use(AuthMiddleware(h))
 	articleGroup.POST("/list", h.GetArticles)
 	articleGroup.GET("/detail/:articleId", h.GetArticleDetail)
 	articleGroup.POST("/new", h.CreateArticle)
