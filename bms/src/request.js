@@ -29,3 +29,7 @@ instance.interceptors.response.use(res => {
 export const post = (url, data) => {
   return instance.post(prefix + url, data)
 }
+
+export const get = (url) => {
+  return instance.get(prefix + url)
+}

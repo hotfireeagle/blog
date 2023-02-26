@@ -1,6 +1,8 @@
 import styles from "./index.less"
 import { Form, Input, Button } from "antd"
 import { post } from "@/request"
+import { tokenStore } from "@/utils/localStorage"
+import { history } from "@umijs/max"
 
 const Login = () => {
   const [formInstance] = Form.useForm()
@@ -8,6 +10,8 @@ const Login = () => {
   const loginHandler = async () => {
     const postData = await formInstance.validateFields()
     return post("/user/login", postData).then(res => {
+      tokenStore.set(res)
+      history.push("/")
     })
   }
 
