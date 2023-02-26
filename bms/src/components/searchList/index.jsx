@@ -62,6 +62,14 @@ const SearchList = props => {
           </Form.Item>
         </Form>
       </div>
+
+      {
+        props.children && (
+          <div className={styles.mb20}>
+            { props.children }
+          </div>
+        )
+      }
       
       <Table
         rowKey="id"

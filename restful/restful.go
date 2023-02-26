@@ -22,7 +22,6 @@ func RunAPIWithHandler(address string, h HandlerInterface) error {
 	articleGroup := apiGroup.Group("/article")
 	articleGroup.POST("/list", h.GetArticles)
 	articleGroup.GET("/detail/:articleId", h.GetArticleDetail)
-	articleGroup.POST("/new", h.CreateArticle)
 
 	bmsGroup := apiGroup.Group("/bms")
 	bmsGroup.Use(AuthMiddleware(h))
@@ -33,6 +32,7 @@ func RunAPIWithHandler(address string, h HandlerInterface) error {
 
 	bmsArticleGroup := bmsGroup.Group("/article")
 	bmsArticleGroup.POST("/list", h.GetArticles)
+	bmsArticleGroup.POST("/new", h.CreateArticle)
 
 	return r.Run(address)
 }

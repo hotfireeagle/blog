@@ -1,5 +1,6 @@
-import { Card } from "antd"
+import { Card, Button } from "antd"
 import SearchList from "@/components/searchList"
+import { history } from "@umijs/max"
 
 const ArticleList = () => {
   const columnList = [
@@ -32,6 +33,10 @@ const ArticleList = () => {
     }
   ]
 
+  const newHandler = () => {
+    history.push("/articleModule/add")
+  }
+
   return (
     <Card>
       <SearchList
@@ -39,7 +44,9 @@ const ArticleList = () => {
         columns={columnList}
         searchs={searchSchemaList}
         formConfig={{ layout: "inline" }}
-      />
+      >
+        <Button onClick={newHandler} type="primary">新增文章</Button>
+      </SearchList>
     </Card>
   )
 }

@@ -12,39 +12,41 @@
  */
 export default [
   {
-    path: '/user',
+    path: "/user",
     layout: false,
     routes: [
       {
-        name: 'login',
-        path: '/user/login',
-        component: './login',
+        name: "login",
+        path: "/user/login",
+        component: "./login",
       },
     ],
   },
   {
-    path: '/articleModule',
-    name: '文章管理',
-    icon: 'crown',
-    routes: [
-      {
-        path: '/articleModule',
-        redirect: '/articleModule/list',
-      },
-      {
-        path: '/articleModule/list',
-        name: '文章列表',
-        component: './articleModule/list',
-      },
-    ],
+    path: "/articleModule",
+    name: "文章列表",
+    icon: "crown",
+    component: "./articleModule/list",
   },
   {
-    path: '/',
-    redirect: '/articleModule',
+    path: "/articleModule/add",
+    name: "新增文章",
+    component: "./articleModule/form",
+    hideInMenu: true,
   },
   {
-    path: '*',
+    path: "/articleModule/detail/:id",
+    name: "文章详情",
+    component: "./articleModule/form",
+    hideInMenu: true,
+  },
+  {
+    path: "/",
+    redirect: "/articleModule",
+  },
+  {
+    path: "*",
     layout: false,
-    component: './404',
+    component: "./404",
   },
 ];
