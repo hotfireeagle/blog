@@ -23,6 +23,13 @@ func (Article) TableName() string {
 }
 
 type QueryArticleListParam struct {
-	Page     int `json:"page"`
-	PageSize int `json:"pageSize"`
+	Page     int    `json:"page"`
+	PageSize int    `json:"pageSize"`
+	Title    string `json:"title"`
+}
+
+type ArticleListResponse struct {
+	List      []Article `json:"list"`
+	Total     int64     `json:"total"`
+	TotalPage int64     `json:"totalPage"`
 }

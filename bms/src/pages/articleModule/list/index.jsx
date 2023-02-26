@@ -1,6 +1,4 @@
-import { Card, Table } from "antd"
-import { get } from "@/request"
-import { useState, useEffect } from "react"
+import { Card } from "antd"
 import SearchList from "@/components/searchList"
 
 const ArticleList = () => {
@@ -11,11 +9,11 @@ const ArticleList = () => {
     },
     {
       title: "创建时间",
-      dataIndex: "title",
+      dataIndex: "createAt",
     },
     {
       title: "更新时间",
-      dataIndex: "title",
+      dataIndex: "updateAt",
     },
     {
       title: "操作",
@@ -30,13 +28,14 @@ const ArticleList = () => {
     {
       type: "input",
       label: "文章标题",
-      key: "TODO:",
+      name: "title",
     }
   ]
 
   return (
     <Card>
       <SearchList
+        url="/article/list"
         columns={columnList}
         searchs={searchSchemaList}
         formConfig={{ layout: "inline" }}

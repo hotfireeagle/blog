@@ -11,6 +11,7 @@ const SearchList = props => {
   const [apiRes, setApiRes] = useState({})
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const [reload, setReload] = useState(false)
 
   const fetchListHandler = () => {
     const searchFormData = formInstance.getFieldsValue()
@@ -40,9 +41,14 @@ const SearchList = props => {
     setPageSize(newPageSize)
   }
 
+  const reloadHandler = () => {
+    formInstance.resetFields()
+    setReload(!reload)
+  }
+
   useEffect(() => {
     fetchListHandler()
-  }, [page, pageSize])
+  }, [page, pageSize, reload])
 
   return (
     <div>
@@ -52,12 +58,13 @@ const SearchList = props => {
           <FormItem list={props.searchs} />
           <Form.Item>
             <Button onClick={fetchListHandler} type="primary" className={styles.mr15}>搜索</Button>
-            <Button>重置</Button>
+            <Button onClick={reloadHandler}>重置</Button>
           </Form.Item>
         </Form>
       </div>
       
       <Table
+        rowKey="id"
         loading={loading}
         columns={props.columns}
         pagination={{
@@ -65,6 +72,7 @@ const SearchList = props => {
           pageSize,
           onChange: paginationChangeHandler,
         }}
+        dataSource={apiRes?.list || []}
       />
     </div>
   )

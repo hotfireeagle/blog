@@ -19,8 +19,8 @@ func NewORM(dsn string) (*DBORM, error) {
 	return &DBORM{DB: db}, err
 }
 
-func (db *DBORM) SelectArticles(page int, size int) (articles []models.Article, err error) {
-	return articles, db.Find(&articles).Error
+func (db *DBORM) SelectArticles(page int, size int, queryArticle *models.Article) (articles []models.Article, err error) {
+	return articles, db.Limit(size).Offset((page - 1) * size).Where(queryArticle).Find(&articles).Error
 }
 
 func (db *DBORM) SelectArticleById(id string) (article models.Article, err error) {
@@ -32,6 +32,12 @@ func (db *DBORM) InsertArticle(article *models.Article) (string, error) {
 	article.CreateAt = time.Now()
 	result := db.Create(article)
 	return article.Id, result.Error
+}
+
+func (db *DBORM) CountArticle(article *models.Article) (int64, error) {
+	var count int64
+	result := db.Table("article").Where(article).Count(&count)
+	return count, result.Error
 }
 
 func (db *DBORM) SelectUserByEmail(email string) (*models.User, error) {

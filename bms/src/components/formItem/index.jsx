@@ -12,7 +12,7 @@ const FormItem = props => {
       const { type } = formSchemaObj
       if (type === "input") {
         formItems.push(
-          <Form.Item {...formSchemaObj}>
+          <Form.Item {...formSchemaObj} key={formSchemaObj.name}>
             <Input />
           </Form.Item>
         )

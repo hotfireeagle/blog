@@ -11,6 +11,13 @@ import (
 
 func AuthMiddleware(h HandlerInterface) gin.HandlerFunc {
 	return func(c *gin.Context) {
+		whiteListMap := map[string]bool{
+			"/api/bms/user/login": true,
+		}
+		if whiteListMap[c.FullPath()] {
+			return
+		}
+
 		token := c.Request.Header.Get("token")
 
 		if token == "" {
@@ -54,7 +61,5 @@ func AuthMiddleware(h HandlerInterface) gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-
-		c.Next()
 	}
 }

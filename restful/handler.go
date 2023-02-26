@@ -46,14 +46,30 @@ func (h *Handler) GetArticles(c *gin.Context) {
 		return
 	}
 
-	articles, err := h.db.SelectArticles(queryArticleListParam.Page, queryArticleListParam.PageSize)
+	queryArticle := &models.Article{
+		Title: queryArticleListParam.Title,
+	}
+
+	articles, err := h.db.SelectArticles(queryArticleListParam.Page, queryArticleListParam.PageSize, queryArticle)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, newErrorResponse(err.Error()))
 		return
 	}
 
-	c.JSON(http.StatusOK, newOkResponse(articles))
+	count, err := h.db.CountArticle(queryArticle)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, newErrorResponse(err.Error()))
+		return
+	}
+
+	res := models.ArticleListResponse{
+		List:      articles,
+		Total:     count,
+		TotalPage: tools.DivCeil(count, int64(queryArticleListParam.PageSize)),
+	}
+
+	c.JSON(http.StatusOK, newOkResponse(res))
 }
 
 func (h *Handler) GetArticleDetail(c *gin.Context) {

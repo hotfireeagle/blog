@@ -1,12 +1,17 @@
 import { history } from "@umijs/max"
 import axios from "axios"
 import { message } from "antd"
+import { tokenStore } from "@/utils/localStorage"
 
-const prefix = "/api"
+const prefix = "/api/bms"
 
 const NEED_LOGIN = 403
 
-const instance = axios.create()
+const instance = axios.create({
+  headers: {
+    token: tokenStore.get(),
+  },
+})
 
 instance.interceptors.response.use(res => {
   const resData = res?.data
