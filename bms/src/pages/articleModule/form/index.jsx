@@ -1,6 +1,7 @@
 import { Card, Form, Button, Row, Col, message } from "antd"
 import FormItem from "@/components/formItem"
 import { post } from "@/request"
+import { marked } from "marked"
 
 const ArticleForm = () => {
   const [formInstance] = Form.useForm()
@@ -13,7 +14,7 @@ const ArticleForm = () => {
       required: true,
     },
     {
-      type: "input",
+      type: "textArea",
       label: "文章内容",
       name: "content",
       required: true,
@@ -21,7 +22,9 @@ const ArticleForm = () => {
   ]
 
   const saveHandler = async () => {
-    const postData = await formInstance.validateFields()
+    const value = await formInstance.validateFields()
+    const postData = { ...value }
+    postData.content = marked(postData.content)
     return post("/article/new", postData).then(res => {
       message.success("操作成功")
     })

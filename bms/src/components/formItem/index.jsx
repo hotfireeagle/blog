@@ -10,13 +10,17 @@ const FormItem = props => {
 
     arr.forEach(formSchemaObj => {
       const { type } = formSchemaObj
+      let uiComp = <span>err</span>
       if (type === "input") {
-        formItems.push(
-          <Form.Item {...formSchemaObj} key={formSchemaObj.name}>
-            <Input />
-          </Form.Item>
-        )
+        uiComp = <Input />
+      } else if (type === "textArea") {
+        uiComp = <Input.TextArea />
       }
+      formItems.push(
+        <Form.Item {...formSchemaObj} key={formSchemaObj.name}>
+          {uiComp}
+        </Form.Item>
+      )
     })
 
     return formItems
