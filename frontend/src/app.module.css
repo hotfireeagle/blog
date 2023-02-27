@@ -1,0 +1,20 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.125);
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 640px;
+  background: #fff;
+}
+@media (max-width: 719px) {
+  .pageContainer {
+    padding: 40px 20px;
+  }
+}
+.bodyCls {
+  flex-grow: 1;
+}
+.headerCls {
+  margin-bottom: 40px;
+}
