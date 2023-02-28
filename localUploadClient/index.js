@@ -1,1 +1,0 @@
-const project_dir = "/Users/smallhai/Documents/哈利路亚"
