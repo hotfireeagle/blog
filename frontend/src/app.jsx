@@ -12,7 +12,7 @@ export default function App() {
       </div>
       <div className={styles.bodyCls}>
         <Routes>
-          <Route path="/detail" component={Detail} />
+          <Route path="/detail/:id" component={Detail} />
           <Route path="/" component={Index} />
         </Routes>
       </div>

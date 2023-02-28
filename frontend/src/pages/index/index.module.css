@@ -12,3 +12,6 @@
   cursor: pointer;
   text-decoration: underline;
 }
+.titleCls a {
+  color: #222;
+}

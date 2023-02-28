@@ -1,5 +1,7 @@
-import { createSignal, For } from "solid-js";
+import { createSignal, For } from "solid-js"
+import { A } from "@solidjs/router"
 import { post } from "@/utils/request"
+import { dateFormat2ui } from "@/utils"
 import styles from "./index.module.css"
 
 export default function Index() {
@@ -9,23 +11,15 @@ export default function Index() {
     setArticleListRes(data)
   })
 
-  const renderArticleItem = (articleObj, idx) => {
-    const dateObj = new Date(articleObj.createAt)
-    let month = dateObj.getMonth()
-    if (month < 10) {
-      month = "0" + month
-    }
-    let date = dateObj.getDate()
-    if (date < 10) {
-      date = "0" + date
-    }
-
-    const createDateStr = dateObj.getFullYear() + "/" + month + "/" + date
+  const renderArticleItem = articleObj => {
+    const createDateStr = dateFormat2ui(articleObj.createAt)
  
     return (
       <div className={styles.articleItem}>
         <span className={styles.dateCls}>{createDateStr}</span>
-        <span className={styles.titleCls}>{articleObj.title}</span>
+        <span className={styles.titleCls}>
+          <A href={`/detail/${articleObj.id}`}>{articleObj.title}</A>
+        </span>
       </div>
     )
   }

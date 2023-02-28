@@ -1,6 +1,8 @@
 const prefix = "/api"
 const ErrStatus = 0
 
+const errHandler = alert
+
 export const post = (url, data) => {
   return new Promise((resolve, reject) => {
     fetch(prefix + url, {
@@ -14,7 +16,22 @@ export const post = (url, data) => {
     }).then(resObj => {
       const { msg, status, data } = resObj
       if (status === ErrStatus) {
-        // TODO:
+        errHandler(msg)
+        reject(data)
+      }
+      resolve(data)
+    }).catch(reject)
+  })
+}
+
+export const get = url => {
+  return new Promise((resolve, reject) => {
+    fetch(prefix + url).then(res => {
+      return res.json()
+    }).then(resObj => {
+      const { msg, status, data } = resObj
+      if (status === ErrStatus) {
+        errHandler(msg)
         reject(data)
       }
       resolve(data)
