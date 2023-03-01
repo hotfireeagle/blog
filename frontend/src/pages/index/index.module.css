@@ -7,6 +7,9 @@
 }
 .articleItem {
   line-height: 26px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .titleCls {
   cursor: pointer;
@@ -14,4 +17,14 @@
 }
 .titleCls a {
   color: #222;
+}
+.paginationContainer {
+  margin-top: 20px;
+  text-align: center;
+}
+.mlr4 {
+  margin: 0 4px;
+}
+.lrcls {
+  cursor: pointer;
 }

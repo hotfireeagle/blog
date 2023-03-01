@@ -1,4 +1,4 @@
-import { createSignal, For } from "solid-js"
+import { createSignal, For, createEffect } from "solid-js"
 import { A } from "@solidjs/router"
 import { post } from "@/utils/request"
 import { dateFormat2ui } from "@/utils"
@@ -6,11 +6,28 @@ import styles from "./index.module.css"
 
 export default function Index() {
   const [articleListRes, setArticleListRes] = createSignal({})
+  const [page, setPage] = createSignal(1)
 
-  post("/article/list", { page: 1, pageSize: 10 }).then(data => {
-    setArticleListRes(data)
+  createEffect(() => {
+    post("/article/list", { page: page(), pageSize: 30 }).then(data => {
+      setArticleListRes(data)
+    })
   })
 
+  const nextOrPrevHandler = base => {
+    const cur = page()
+    const nextV = cur + base
+    if (nextV < 1 || nextV > articleListRes().totalPage) {
+      return
+    }
+    setPage(nextV)
+  }
+
+  /**
+   * 渲染一行文章内容
+   * @param {*} articleObj 
+   * @returns 
+   */
   const renderArticleItem = articleObj => {
     const createDateStr = dateFormat2ui(articleObj.createAt)
  
@@ -29,6 +46,11 @@ export default function Index() {
       <For each={articleListRes().list || []}>
         { renderArticleItem }
       </For>
+      <div className={styles.paginationContainer}>
+        <span onClick={() => nextOrPrevHandler(-1)} className={styles.lrcls}>&lt&lt</span>
+        <span className={styles.mlr4}>{page()}</span>
+        <span onClick={() => nextOrPrevHandler(1)} className={styles.lrcls}>&gt&gt</span>
+      </div>
     </div>
   )
 }

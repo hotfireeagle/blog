@@ -2,6 +2,7 @@ import { Routes, Route } from "@solidjs/router"
 import Index from "./pages/index"
 import Detail from "./pages/detail"
 import Header from "./components/header"
+import Footer from "./components/footer"
 import styles from "./app.module.css"
 
 export default function App() {
@@ -15,6 +16,9 @@ export default function App() {
           <Route path="/detail/:id" component={Detail} />
           <Route path="/" component={Index} />
         </Routes>
+      </div>
+      <div className={styles.footerContainerCls}>
+        <Footer />
       </div>
     </div>
   )

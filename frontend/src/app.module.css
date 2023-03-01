@@ -18,3 +18,8 @@
 .headerCls {
   margin-bottom: 25px;
 }
+.footerContainerCls {
+  margin-top: 25px;
+  padding-top: 7px;
+  border-top: 1px solid #ccc;
+}

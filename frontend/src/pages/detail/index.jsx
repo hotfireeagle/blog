@@ -1,7 +1,7 @@
 import styles from "./index.module.css"
 import { get } from "@/utils/request"
 import { useParams } from "@solidjs/router"
-import { createSignal, onMount } from "solid-js"
+import { createSignal } from "solid-js"
 
 export default function Detail() {
   const paramsObj = useParams()
@@ -9,9 +9,7 @@ export default function Detail() {
 
   get(`/article/detail/${paramsObj.id}`).then(result => {
     setArticleDetail(result)
-  })
-
-  onMount(() => {
+  }).then(() => {
     const scriptDom = document.createElement("script")
     scriptDom.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"
     const linkDom = document.createElement("link")
