@@ -4,7 +4,7 @@
      
 相关技术框架：React + Solidjs + Gin + Mysql + GORM + Nodejs
 
-## 如何运行
+### 如何运行
 
 + 安装Mysql
 + 安装Node.js
@@ -12,7 +12,7 @@
 + go run main.go启动后端
 + cd到相应前端项目(npm run dev)
      
-## 目录介绍
+### 目录介绍
 
 ```txt
 ├── bms: 前端后台管理系统所在工程目录，使用ant-design-pro脚手架
@@ -26,5 +26,5 @@
 └── tools: 工具封装
 ```
 
-## demo展示
+### demo展示
 [![ppiOd7q.png](https://s1.ax1x.com/2023/03/01/ppiOd7q.png)](https://imgse.com/i/ppiOd7q)
