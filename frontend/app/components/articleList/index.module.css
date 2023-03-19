@@ -1,0 +1,46 @@
+.dateCls {
+  font-weight: 500;
+  margin-right: 4px;
+  color: #222;
+}
+.articleItem {
+  line-height: 26px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.titleCls {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.titleCls a {
+  color: #222;
+}
+.paginationWrapper {
+  margin-top: 15px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.picon {
+  width: 16px !important;
+  height: 16px !important;
+  cursor: pointer;
+}
+.picon path {
+  fill: #000 !important;
+}
+.rpicon {
+  transform: rotate(180deg);
+}
+.paginationWrapper a {
+  display: flex;
+  align-items: center;
+}
+.r15 {
+  margin-right: 10px;
+}
+.l15 {
+  margin-left: 10px;
+}

@@ -29,7 +29,8 @@ type QueryArticleListParam struct {
 }
 
 type ArticleListResponse struct {
-	List      []Article `json:"list"`
-	Total     int64     `json:"total"`
-	TotalPage int64     `json:"totalPage"`
+	List        []Article `json:"list"`
+	Total       int64     `json:"total"`
+	TotalPage   int64     `json:"totalPage"`
+	CurrentPage int       `json:"currentPage"`
 }

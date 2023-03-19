@@ -64,9 +64,10 @@ func (h *Handler) GetArticles(c *gin.Context) {
 	}
 
 	res := models.ArticleListResponse{
-		List:      articles,
-		Total:     count,
-		TotalPage: tools.DivCeil(count, int64(queryArticleListParam.PageSize)),
+		List:        articles,
+		Total:       count,
+		TotalPage:   tools.DivCeil(count, int64(queryArticleListParam.PageSize)),
+		CurrentPage: queryArticleListParam.Page,
 	}
 
 	c.JSON(http.StatusOK, newOkResponse(res))
